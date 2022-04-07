@@ -1,10 +1,14 @@
 
+## Get Started with App
 
-Modules:
+### Build Commands
+* mvn package install
 
-* restapi-app 1.0-SNAPSHOT 
-* restapi-prototype 0.1.0 
-* event-service-api 0.1.0 
-* event-service-dto 0.1.0 
-* event-service-impl 0.1.0 
-* event-service-rest 0.0.1-SNAPSHOT
+
+### Run Application
+
+* java -jar restapi-app/target/restapi-app-0.1.0.jar
+
+### Manual Test
+
+Verify this url: http://localhost:8080/test

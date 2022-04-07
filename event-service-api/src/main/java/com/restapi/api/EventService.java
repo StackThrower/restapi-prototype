@@ -1,4 +1,4 @@
-
+package com.restapi.api;
 
 public interface EventService {
 

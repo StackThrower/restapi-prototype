@@ -1,3 +1,6 @@
 .idea
 event-service-api/target
 event-service-dto/target
+event-service-rest/target
+event-service-impl/target
+restapi-app/target

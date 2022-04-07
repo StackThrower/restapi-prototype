@@ -1,3 +1,5 @@
+package com.restapi.dto;
+
 import java.util.Date;
 
 public class Event {
