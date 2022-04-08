@@ -17,6 +17,6 @@ public class MainController {
 
     @GetMapping("/test")
     String getTest() {
-        return "This is a test REST response, event:" + eventService.getEvent("1234").toString();
+        return "This is a test REST response, event:" + eventService.getEvent(1234).toString();
     }
 }

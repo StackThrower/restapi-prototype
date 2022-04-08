@@ -17,6 +17,9 @@
     </properties>
 
     <dependencies>
+
+
+
         <dependency>
             <groupId>com.restapi</groupId>
             <artifactId>event-service-dto</artifactId>

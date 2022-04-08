@@ -1,16 +1,36 @@
 package com.restapi.dto;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "tb_event", schema = "public")
 public class Event {
-    String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
+
+    @Column(name="title", nullable = false, length = 200)
     String title;
+
+    @Column(name="place", nullable = false, length = 200)
     String place;
+
+    @Column(name="speaker", nullable = false, length = 200)
     String speaker;
+
+    @Column(name="eventType", nullable = false, length = 200)
     String eventType;
+
+    @Column(name="dateTime", nullable = false)
     Date dateTime;
 
-    public Event(String id, String title, String place, String speaker, String eventType, Date dateTime) {
+    public Event() {
+
+    }
+
+    public Event(Integer id, String title, String place, String speaker, String eventType, Date dateTime) {
         this.id = id;
         this.title = title;
         this.place = place;

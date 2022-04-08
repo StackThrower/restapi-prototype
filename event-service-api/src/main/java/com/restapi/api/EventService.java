@@ -23,19 +23,19 @@ public interface EventService {
      * @param id
      * @return
      */
-    Event getEvent(String id);
+    Event getEvent(Integer id);
 
     /**
      * Remove event from the db
-     * @param id
+     * @param event
      */
-    void deleteEvent(String id);
+    void deleteEvent(Event event);
 
     /**
      * Get all events
      * @return
      */
-    List<Event> getAllEvents();
+    Iterable<Event> getAllEvents();
 
     /**
      * Get event by title
