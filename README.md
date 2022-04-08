@@ -7,7 +7,7 @@
 
 ### Run Application
 
-* java -jar restapi-app/target/restapi-app-0.1.0.jar
+* java -jar event-service-rest/target/event-service-rest-0.1.0.jar
 
 ### Manual Test
 
