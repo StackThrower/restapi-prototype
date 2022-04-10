@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class MainController {
 
     private EventService eventService;
@@ -73,10 +73,14 @@ public class MainController {
      * @param id
      * @return
      */
-    @PostMapping("/events/{id}")
+    @GetMapping("/events/{id}")
     public ResponseEntity<EventApi> getById(@PathVariable Integer id) {
 
         Event event = eventService.getEvent(id);
+
+        if (event == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
 
         return new ResponseEntity<>(EventApi.builder()
                 .id(event.getId())
@@ -86,7 +90,7 @@ public class MainController {
                 .speaker(event.getSpeaker())
                 .dateTime(event.getDateTime())
                 .build(),
-                HttpStatus.CREATED);
+                HttpStatus.OK);
     }
 
     /**
@@ -99,6 +103,7 @@ public class MainController {
 
         Event event = payload.getEvent();
         event = eventService.updateEvent(event);
+
 
         return new ResponseEntity<>(EventApi.builder()
                 .id(event.getId())
