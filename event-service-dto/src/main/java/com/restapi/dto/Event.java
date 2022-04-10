@@ -39,6 +39,30 @@ public class Event {
         this.dateTime = dateTime;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public String getSpeaker() {
+        return speaker;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
     @Override
     public String toString() {
         return "Event{" +

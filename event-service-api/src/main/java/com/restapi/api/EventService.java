@@ -9,14 +9,16 @@ public interface EventService {
     /**
      * Creates new event
      * @param event
+     * @return
      */
-    void createEvent(Event event);
+    Event createEvent(Event event);
 
     /**
      * Updates existing event
      * @param event
+     * @return
      */
-    void updateEvent(com.restapi.dto.Event event);
+    Event updateEvent(Event event);
 
     /**
      * Get event by id
@@ -35,7 +37,7 @@ public interface EventService {
      * Get all events
      * @return
      */
-    Iterable<Event> getAllEvents();
+    List<Event> getAllEvents();
 
     /**
      * Get event by title

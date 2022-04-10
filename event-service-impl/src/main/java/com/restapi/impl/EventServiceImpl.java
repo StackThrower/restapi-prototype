@@ -19,18 +19,20 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void createEvent(Event event) {
+    public Event createEvent(Event event) {
         eventRepository.save(event);
+        return event;
     }
 
     @Override
-    public void updateEvent(Event event) {
+    public Event updateEvent(Event event) {
         eventRepository.save(event);
+        return event;
     }
 
     @Override
     public Event getEvent(Integer id) {
-        return eventRepository.findById(id).orElse(new Event());
+        return eventRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Iterable<Event> getAllEvents() {
+    public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
 

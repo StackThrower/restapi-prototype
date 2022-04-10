@@ -22,21 +22,4 @@
         <module>event-service-impl</module>
     </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <artifactId>event-service-api</artifactId>
-                <groupId>com.restapi</groupId>
-            </dependency>
-            <dependency>
-                <artifactId>event-service-dto</artifactId>
-                <groupId>com.restapi</groupId>
-            </dependency>
-            <dependency>
-                <artifactId>event-service-impl</artifactId>
-                <groupId>com.restapi</groupId>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 </project>
