@@ -1,67 +1,41 @@
 package com.restapi.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_event", schema = "public")
 public class Event {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @Getter
     @Column(name="title", nullable = false, length = 200)
     String title;
 
+    @Getter
     @Column(name="place", nullable = false, length = 200)
     String place;
 
+    @Getter
     @Column(name="speaker", nullable = false, length = 200)
     String speaker;
 
+    @Getter
     @Column(name="eventType", nullable = false, length = 200)
     String eventType;
 
+    @Getter
     @Column(name="dateTime", nullable = false)
     Date dateTime;
-
-    public Event() {
-
-    }
-
-    public Event(Integer id, String title, String place, String speaker, String eventType, Date dateTime) {
-        this.id = id;
-        this.title = title;
-        this.place = place;
-        this.speaker = speaker;
-        this.eventType = eventType;
-        this.dateTime = dateTime;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public String getSpeaker() {
-        return speaker;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
 
     @Override
     public String toString() {

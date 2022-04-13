@@ -45,6 +45,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> getAllEventsByTitle(String title) {
-        return eventRepository.getEventByTitle(title);
+        return eventRepository.findByTitle(title);
     }
 }

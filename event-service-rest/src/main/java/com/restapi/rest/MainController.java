@@ -52,16 +52,16 @@ public class MainController {
     public ResponseEntity<List<EventApi>> getEventList() {
 
         List<EventApi> events = eventService.getAllEvents()
-                .stream().map(e -> new EventApi(e.getId(),
-                        e.getTitle(),
-                        e.getPlace(),
-                        e.getSpeaker(),
-                        e.getEventType(),
-                        e.getDateTime()))
+                .stream().map(event -> new EventApi(event.getId(),
+                        event.getTitle(),
+                        event.getPlace(),
+                        event.getSpeaker(),
+                        event.getEventType(),
+                        event.getDateTime()))
                 .collect(Collectors.toList());
 
         if (events.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(events,
@@ -79,7 +79,7 @@ public class MainController {
         Event event = eventService.getEvent(id);
 
         if (event == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(EventApi.builder()
@@ -125,16 +125,12 @@ public class MainController {
     public ResponseEntity<HttpStatus> deleteEvent(@PathVariable Integer id) {
         Event event = eventService.getEvent(id);
         if (event == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        try {
-            eventService.deleteEvent(event);
+        eventService.deleteEvent(event);
 
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
