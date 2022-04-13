@@ -22,9 +22,10 @@ public class MainController {
     }
 
     /**
-     * Create new event
-     * @param payload
-     * @return
+     * Create new event.
+     *
+     * @param payload JSON input data
+     * @return the event object with valid id field
      */
     @PostMapping("/events")
     public ResponseEntity<EventApi> createEvent(@RequestBody EventApi payload) {
@@ -46,7 +47,8 @@ public class MainController {
 
     /**
      * Get all events from the storage.
-     * @return
+     *
+     * @return the list of events or 404 HTTP code
      */
     @GetMapping("/events")
     public ResponseEntity<List<EventApi>> getEventList() {
@@ -69,9 +71,10 @@ public class MainController {
     }
 
     /**
-     * Get one event by id
-     * @param id
-     * @return
+     * Get one event by id.
+     *
+     * @param id unique identifier
+     * @return the event object or 404 HTTP code
      */
     @GetMapping("/events/{id}")
     public ResponseEntity<EventApi> getById(@PathVariable Integer id) {
@@ -94,9 +97,10 @@ public class MainController {
     }
 
     /**
-     * Update event by id
-     * @param id
-     * @return
+     * Update event by id.
+     *
+     * @param id unique identifier of event
+     * @return the updated event object
      */
     @PutMapping("/events/{id}")
     public ResponseEntity<EventApi> updateEvent(@PathVariable Integer id, @RequestBody EventApi payload) {
@@ -118,8 +122,9 @@ public class MainController {
 
     /**
      * Delete event by id
-     * @param id
-     * @return
+     *
+     * @param id unique identifier
+     * @return HTTP code depends of the internal logic
      */
     @DeleteMapping("/events/{id}")
     public ResponseEntity<HttpStatus> deleteEvent(@PathVariable Integer id) {
