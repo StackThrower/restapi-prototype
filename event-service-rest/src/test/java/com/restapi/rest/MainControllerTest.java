@@ -62,45 +62,4 @@ class MainControllerTest {
                 );
     }
 
-
-
-    @Test
-    void createEventAndGetRemoveEvent() throws Exception {
-
-        MvcResult result = mvc.perform(post("/api/v1/events")
-                        .contentType("application/json")
-                        .content(ONE_EVENT)
-                )
-                .andExpectAll(
-                        status().is2xxSuccessful()
-                ).andReturn();
-
-        String response = result.getResponse().getContentAsString();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        ObjectNode node = objectMapper.readValue(response, ObjectNode.class);
-
-        int id = -1;
-
-        if (node.has("id"))
-            id = node.get("id").asInt();
-
-        mvc.perform(get("/api/v1/events/" + id))
-                .andExpectAll(
-                        status().isOk()
-                );
-
-        mvc.perform(delete("/api/v1/events/" + id))
-                .andExpectAll(
-                        status().is(204)
-                );
-
-        mvc.perform(get("/api/v1/events/" + id))
-                .andExpectAll(
-                        status().is(204)
-                );
-
-    }
-
-
 }

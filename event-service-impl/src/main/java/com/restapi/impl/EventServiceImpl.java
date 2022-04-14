@@ -6,6 +6,7 @@ import com.restapi.dto.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -19,11 +20,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event createEvent(Event event) {
         return eventRepository.save(event);
     }
 
     @Override
+    @Transactional
     public Event updateEvent(Event event) {
         return eventRepository.save(event);
     }
@@ -34,6 +37,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void deleteEvent(Event event) {
         eventRepository.delete(event);
     }
