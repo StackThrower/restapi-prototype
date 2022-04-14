@@ -48,14 +48,13 @@ public class EventRepositoryIntegrationTest {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .build();
-
-        when(eventRepository.save(any(Event.class)))
-                .thenReturn(EVENT_FROM_DB);
     }
-
 
     @Test
     void createEvent() throws Exception {
+
+        when(eventRepository.save(any(Event.class)))
+                .thenReturn(EVENT_FROM_DB);
 
         MvcResult result = mvc.perform(post("/api/v1/events")
                         .contentType("application/json")
@@ -75,6 +74,7 @@ public class EventRepositoryIntegrationTest {
         if (node.has("id"))
             id = node.get("id").asInt();
 
+        // verity the returned id from the mocked repository
         assertEquals("", id, 1);
 
         verify(eventRepository, times(1)).save(any(Event.class));
