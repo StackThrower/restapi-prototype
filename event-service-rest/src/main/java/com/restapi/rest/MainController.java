@@ -1,6 +1,5 @@
 package com.restapi.rest;
 
-import com.restapi.EventApi;
 import com.restapi.api.EventService;
 import com.restapi.dto.Event;
 import org.springframework.beans.factory.annotation.Autowired;
