@@ -16,20 +16,10 @@
     </parent>
 
     <modules>
-        <module>restapi-app</module>
         <module>event-service-rest</module>
         <module>event-service-api</module>
         <module>event-service-dto</module>
         <module>event-service-impl</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <artifactId>event-service-rest</artifactId>
-                <groupId>com.restapi</groupId>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 </project>
