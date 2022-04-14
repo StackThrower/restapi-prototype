@@ -44,16 +44,16 @@ class MainControllerTest {
                 );
     }
 
-//    @Test
-//    void createEvent() throws Exception {
-//
-//        mvc.perform(post("/api/v1/events")
-//                        .contentType("application/json")
-//                        .content(ONE_EVENT)
-//                )
-//                .andExpectAll(
-//                        status().is2xxSuccessful()
-//                );
-//    }
+    @Test
+    void createEvent() throws Exception {
+
+        mvc.perform(post("/api/v1/events")
+                        .contentType("application/json")
+                        .content(ONE_EVENT)
+                )
+                .andExpectAll(
+                        status().is2xxSuccessful()
+                );
+    }
 
 }

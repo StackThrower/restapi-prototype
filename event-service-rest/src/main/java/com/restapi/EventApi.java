@@ -1,4 +1,4 @@
-package com.restapi.rest;
+package com.restapi;
 
 import com.restapi.dto.Event;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class EventApi {
 
     private Date dateTime;
 
-    Event getEvent() {
+    public Event getEvent() {
         return new Event(id, title, place, speaker,
                 eventType, dateTime);
     }
