@@ -9,6 +9,7 @@ import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "tb_event", schema = "public")
 public class Event {
 

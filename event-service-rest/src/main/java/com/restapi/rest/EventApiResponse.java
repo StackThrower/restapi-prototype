@@ -1,10 +1,10 @@
 package com.restapi.rest;
 
-import com.restapi.dto.Event;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EventApi {
+public class EventApiResponse extends RepresentationModel<EventApiResponse> {
 
     private Integer id;
 
@@ -25,9 +25,4 @@ public class EventApi {
     private String eventType;
 
     private Date dateTime;
-
-    Event getEvent() {
-        return new Event(id, title, place, speaker,
-                eventType, dateTime);
-    }
 }

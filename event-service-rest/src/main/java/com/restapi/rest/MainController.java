@@ -3,12 +3,18 @@ package com.restapi.rest;
 import com.restapi.api.EventService;
 import com.restapi.dto.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.core.DummyInvocationUtils.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,20 +34,28 @@ public class MainController {
      * @return the event object with valid id field
      */
     @PostMapping("/events")
-    public ResponseEntity<EventApi> createEvent(@RequestBody EventApi payload) {
+    public ResponseEntity<EntityModel<EventApiResponse>> createEvent(@RequestBody EventApiRequest payload) {
 
         Event event = payload.getEvent();
 
         event = eventService.createEvent(event);
 
-        return new ResponseEntity<>(EventApi.builder()
+        List<Link> links = new ArrayList<>();
+        links.add(linkTo(methodOn(MainController.class).createEvent(new EventApiRequest())).withSelfRel());
+        links.add(linkTo(methodOn(MainController.class).getById(event.getId())).withRel("get"));
+        links.add(linkTo(methodOn(MainController.class).updateEvent(event.getId(), new EventApiRequest())).withRel("update"));
+        links.add(linkTo(methodOn(MainController.class).deleteEvent(event.getId())).withRel("delete"));
+
+        EntityModel<EventApiResponse> entity = EntityModel.of(EventApiResponse.builder()
                 .id(event.getId())
                 .title(event.getTitle())
                 .eventType(event.getEventType())
                 .place(event.getPlace())
                 .speaker(event.getSpeaker())
                 .dateTime(event.getDateTime())
-                .build(),
+                .build(), links);
+
+        return new ResponseEntity<>(entity,
                 HttpStatus.CREATED);
     }
 
@@ -51,15 +65,25 @@ public class MainController {
      * @return the list of events or 404 HTTP code
      */
     @GetMapping("/events")
-    public ResponseEntity<List<EventApi>> getEventList() {
+    public ResponseEntity<List<EntityModel<EventApiResponse>>> getEventList() {
 
-        List<EventApi> events = eventService.getAllEvents()
-                .stream().map(event -> new EventApi(event.getId(),
-                        event.getTitle(),
-                        event.getPlace(),
-                        event.getSpeaker(),
-                        event.getEventType(),
-                        event.getDateTime()))
+        List<EntityModel<EventApiResponse>> events = eventService.getAllEvents()
+                .stream().map(event -> {
+
+                    List<Link> links = new ArrayList<>();
+                    links.add(linkTo(methodOn(MainController.class).getById(event.getId())).withRel("get"));
+                    links.add(linkTo(methodOn(MainController.class).updateEvent(event.getId(), new EventApiRequest())).withRel("update"));
+                    links.add(linkTo(methodOn(MainController.class).deleteEvent(event.getId())).withRel("delete"));
+
+                    return EntityModel.of(EventApiResponse.builder()
+                            .id(event.getId())
+                            .title(event.getTitle())
+                            .eventType(event.getEventType())
+                            .place(event.getPlace())
+                            .speaker(event.getSpeaker())
+                            .dateTime(event.getDateTime())
+                            .build(), links);
+                })
                 .collect(Collectors.toList());
 
         if (events.isEmpty()) {
@@ -77,7 +101,7 @@ public class MainController {
      * @return the event object or 404 HTTP code
      */
     @GetMapping("/events/{id}")
-    public ResponseEntity<EventApi> getById(@PathVariable Integer id) {
+    public ResponseEntity<EntityModel<EventApiResponse>> getById(@PathVariable Integer id) {
 
         Event event = eventService.getEvent(id);
 
@@ -85,15 +109,21 @@ public class MainController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(EventApi.builder()
+        List<Link> links = new ArrayList<>();
+        links.add(linkTo(methodOn(MainController.class).getById(id)).withSelfRel());
+        links.add(linkTo(methodOn(MainController.class).updateEvent(id, new EventApiRequest())).withRel("update"));
+        links.add(linkTo(methodOn(MainController.class).deleteEvent(id)).withRel("delete"));
+
+        EntityModel<EventApiResponse> result = EntityModel.of(EventApiResponse.builder()
                 .id(event.getId())
                 .title(event.getTitle())
                 .eventType(event.getEventType())
                 .place(event.getPlace())
                 .speaker(event.getSpeaker())
                 .dateTime(event.getDateTime())
-                .build(),
-                HttpStatus.OK);
+                .build(), links);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
@@ -103,21 +133,26 @@ public class MainController {
      * @return the updated event object
      */
     @PutMapping("/events/{id}")
-    public ResponseEntity<EventApi> updateEvent(@PathVariable Integer id, @RequestBody EventApi payload) {
+    public ResponseEntity<EntityModel<EventApiResponse>> updateEvent(@PathVariable Integer id, @RequestBody EventApiRequest payload) {
 
         Event event = payload.getEvent();
         event = eventService.updateEvent(event);
 
+        List<Link> links = new ArrayList<>();
+        links.add(linkTo(methodOn(MainController.class).updateEvent(id, new EventApiRequest())).withSelfRel());
+        links.add(linkTo(methodOn(MainController.class).getById(id)).withRel("get"));
+        links.add(linkTo(methodOn(MainController.class).deleteEvent(id)).withRel("delete"));
 
-        return new ResponseEntity<>(EventApi.builder()
+        EntityModel<EventApiResponse> entity = EntityModel.of(EventApiResponse.builder()
                 .id(event.getId())
                 .title(event.getTitle())
                 .eventType(event.getEventType())
                 .place(event.getPlace())
                 .speaker(event.getSpeaker())
                 .dateTime(event.getDateTime())
-                .build(),
-                HttpStatus.CREATED);
+                .build(), links);
+
+        return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
     /**
